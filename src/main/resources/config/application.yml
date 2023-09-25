@@ -1,0 +1,34 @@
+#Server embedded configuration
+server:
+  port: 8761
+  shutdown: graceful
+  forward-headers-strategy: native
+
+#Spring configuration
+spring:
+  application:
+    name: eureka-server
+  profiles:
+    active: ${ACTIVE_PROFILES:dev}
+  main:
+    banner-mode: off
+    web-application-type: servlet
+  lifecycle:
+    timeout-per-shutdown-phase: ${GRACEFUL_SHUTDOWN_TIMEOUT:120s}
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+
+#Custome application configuration
+
+#Logback logging configuration
+logging:
+  config: classpath:config/logback-spring.xml
+  file:
+    name: ${LOGGING_APP_FILE_NAME:main}
+    path: ${LOGGING_APP_FILE_PATH:logs}
+  level:
+    root: info
+    web: info
